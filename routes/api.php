@@ -1,5 +1,5 @@
 <?php
-
+use App\Quotes;
 use Illuminate\Http\Request;
 
 /*
@@ -17,9 +17,25 @@ use Illuminate\Http\Request;
     return $request->user();
 });
 */
-Route::post('register', 'UserController@register');
-Route::post('login', 'UserController@authenticate');
+Route::get('quotes', function(){
+    return Quotes::all();
+});
 
-Route::group(['middleware' => ['jwt.verify']], function(){
+Route::get('quotes/{id}', function($id){
+    return Quotes::find($id);
+});
 
+Route::post('quotes', function(Request $request){
+    return Quotes::create($request->all());
+});
+
+Route::put('quotes/{id}', function(Request $request, $id){
+    $quotes = Quotes::findOrFail($id);
+    $quotes->update($request->all());
+    return $quotes;
+});
+
+Route::delete('quotes/{id}', function($id){
+    Quotes::find($id)->delete();
+    return 204;
 });
