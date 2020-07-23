@@ -1,6 +1,8 @@
 <?php
 
+use App\Quote;
 use App\Pacients;
+use App\Doctor;
 use Illuminate\Http\Request;
 
 /*

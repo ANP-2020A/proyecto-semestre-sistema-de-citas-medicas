@@ -17,8 +17,8 @@ class DatabaseSeeder extends Seeder
         $this->call(PacientsTableSeeder::class);
         $this->call(SpecialitiesTableSeeder::class);
         $this->call(DoctorsTableSeeder::class);
-      
-        $this->call(QuotesTableSeeder::class);      
+
+        $this->call(QuotesTableSeeder::class);                              
         Schema::enableForeignKeyConstraints();
     }
 }

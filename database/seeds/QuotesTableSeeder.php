@@ -21,7 +21,7 @@ class QuotesTableSeeder extends Seeder
             Quote::create([
                 'datetime'=> $faker->date('Y-m-d'),
                 'description'=> $faker->paragraph,
-                'state'=> $faker->state,
+                'state'=> $faker->boolean,
                 ]);
         }
     }
