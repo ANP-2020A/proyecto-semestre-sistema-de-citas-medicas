@@ -26,6 +26,7 @@ class DoctorsTableSeeder extends Seeder
                 'mail_doctor'=> $faker->email,
                 'ci_doctor'=> $faker->numberBetween(1712654897,1794879546),
                 'telefono_doctor'=> $faker->numberBetween(983160344,999999999),
+
             ]);
         }
 }
