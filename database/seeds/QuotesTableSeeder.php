@@ -1,6 +1,6 @@
 <?php
 
-use App\Quote;
+use App\Quotes;
 use Illuminate\Database\Seeder;
 
 class QuotesTableSeeder extends Seeder
@@ -13,12 +13,12 @@ class QuotesTableSeeder extends Seeder
     public function run()
     {
         //Vaciar la tabla.
-        Quote::truncate();
+        Quotes::truncate();
         $faker = \Faker\Factory::create();
 
         // Crear citas ficticias en la tabla
         for($i = 0; $i < 10; $i++) {
-            Quote::create([
+            Quotes::create([
                 'datetime'=> $faker->date('Y-m-d'),
                 'description'=> $faker->paragraph,
                 'state'=> $faker->state,
