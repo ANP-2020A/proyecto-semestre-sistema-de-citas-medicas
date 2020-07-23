@@ -4,8 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+
 class Doctor extends Model
 {
-    protected$fillable = ['nombre_doctor', 'apellido_doctor',
+    protected $fillable = ['nombre_doctor', 'apellido_doctor',
        'mail_doctor', 'ci_doctor', 'telefono_doctor'];
+
+    public function specialties(){
+        return $this->belongsToMany('App\Specialty');
+    }
+
 }

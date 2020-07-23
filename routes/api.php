@@ -1,5 +1,8 @@
 <?php
-use App\Quotes;
+
+use App\Quote;
+use App\Pacients;
+use App\Doctor;
 use Illuminate\Http\Request;
 
 /*
@@ -17,25 +20,20 @@ use Illuminate\Http\Request;
     return $request->user();
 });
 */
-Route::get('quotes', function(){
-    return Quotes::all();
-});
+Route::get('quotes', 'QuotesController@index');
+Route::get('quotes/{quotes}', 'QuotesController@show');
+Route::post('quotes', 'QuotesController@store');
+Route::put('quotes/{quotes}', 'QuotesController@update');
+Route::delete('quotes/{quotes}', 'QuotesController@delete');
 
-Route::get('quotes/{id}', function($id){
-    return Quotes::find($id);
-});
+Route::get('pacients', 'PacientsController@index');
+Route::get('pacients/{pacients}', 'PacientsController@show');
+Route::post('pacients', 'PacientsController@store');
+Route::put('pacients/{pacients}', 'PacientsController@update');
+Route::delete('pacients/{pacients}', 'PacientsController@delete');
 
-Route::post('quotes', function(Request $request){
-    return Quotes::create($request->all());
-});
-
-Route::put('quotes/{id}', function(Request $request, $id){
-    $quotes = Quotes::findOrFail($id);
-    $quotes->update($request->all());
-    return $quotes;
-});
-
-Route::delete('quotes/{id}', function($id){
-    Quotes::find($id)->delete();
-    return 204;
-});
+Route::get('doctors', 'DoctorController@index');
+Route::get('doctors/{doctors}', 'DoctorController@show');
+Route::post('doctors', 'DoctorController@store');
+Route::put('doctors/{doctors}', 'DoctorController@update');
+Route::delete('doctors/{doctors}', 'DoctorController@delete');
