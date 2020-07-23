@@ -18,25 +18,8 @@ use Illuminate\Http\Request;
     return $request->user();
 });
 */
-Route::get('pacients', function(){
-    return Pacients::all();
-});
-
-Route::get('pacients/{id}', function($id){
-    return Pacients::find($id);
-});
-
-Route::post('pacients', function(Request $request){
-    return Pacients::create($request->all());
-});
-
-Route::put('pacients/{id}', function(Request $request, $id){
-    $pacients = Pacients::findOrFail($id);
-    $pacients->update($request->all());
-    return$pacients;
-});
-
-Route::delete('pacients/{id}', function($id){
-    Pacients::find($id)->delete();
-    return 204;
-});
+Route::get('pacients', 'PacientsController@index');
+Route::get('pacients/{pacients}', 'PacientsController@show');
+Route::post('pacients', 'PacientsController@store');
+Route::put('pacients/{pacients}', 'PacientsController@update');
+Route::delete('pacients/{pacients}', 'PacientsController@delete');
