@@ -12,12 +12,13 @@ class DoctorsTableSeeder extends Seeder
      */
     public function run()
     {
-        //Vaciar la tabla.
+        //Vaciar la tabla para crear datos ficticios.
         Doctor::truncate();
 
         $faker = \Faker\Factory::create();
         //Crear artículos ficticios en la tabla
-        for($i = 0; $i < 50; $i++)
+
+        for($i = 0; $i < 50; $i ++)
 
             Doctor::create([
                 'nombre_doctor'=> $faker->firstName,
