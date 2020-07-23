@@ -15,7 +15,7 @@ class SpecialitiesTableSeeder extends Seeder
         // Vaciamos la tabla categories
         Specialty::truncate();
         $faker = \Faker\Factory::create();
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 5; $i++) {
             Specialty::create([
                 'name' => $faker->word
             ]);
