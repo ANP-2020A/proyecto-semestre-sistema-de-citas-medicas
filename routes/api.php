@@ -1,5 +1,6 @@
 <?php
 
+use App\Pacients;
 use Illuminate\Http\Request;
 
 /*
@@ -17,9 +18,8 @@ use Illuminate\Http\Request;
     return $request->user();
 });
 */
-Route::post('register', 'UserController@register');
-Route::post('login', 'UserController@authenticate');
-
-Route::group(['middleware' => ['jwt.verify']], function(){
-
-});
+Route::get('pacients', 'PacientsController@index');
+Route::get('pacients/{pacients}', 'PacientsController@show');
+Route::post('pacients', 'PacientsController@store');
+Route::put('pacients/{pacients}', 'PacientsController@update');
+Route::delete('pacients/{pacients}', 'PacientsController@delete');
