@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
+
 class UserController extends Controller
 {
     public function authenticate(Request $request) {
