@@ -1,6 +1,8 @@
 <?php
 
+use App\Appointment;
 use App\Pacients;
+use App\Doctor;
 use Illuminate\Http\Request;
 
 /*
@@ -18,6 +20,7 @@ use Illuminate\Http\Request;
     return $request->user();
 });
 */
+
 Route::post('register', 'UserController@register');
 Route::post('login', 'UserController@authenticate');
 
