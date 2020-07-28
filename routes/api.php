@@ -18,20 +18,19 @@ use Illuminate\Http\Request;
     return $request->user();
 });
 */
-Route::get('quotes', 'QuotesController@index');
-Route::get('quotes/{quotes}', 'QuotesController@show');
-Route::post('quotes', 'QuotesController@store');
-Route::put('quotes/{quotes}', 'QuotesController@update');
-Route::delete('quotes/{quotes}', 'QuotesController@delete');
+Route::post('register', 'UserController@register');
+Route::post('login', 'UserController@authenticate');
 
-Route::get('pacients', 'PacientsController@index');
-Route::get('pacients/{pacients}', 'PacientsController@show');
-Route::post('pacients', 'PacientsController@store');
-Route::put('pacients/{pacients}', 'PacientsController@update');
-Route::delete('pacients/{pacients}', 'PacientsController@delete');
+Route::get('appointments', 'AppointmentController@index');
+Route::get('appointments/{appointments}', 'AppointmentController@show');
+Route::post('appointments', 'AppointmentController@store');
+Route::put('appointments/{appointments}', 'AppointmentController@update');
+Route::delete('appointments/{appointments}', 'AppointmentController@delete');
 
-Route::get('doctors', 'DoctorController@index');
-Route::get('doctors/{doctors}', 'DoctorController@show');
-Route::post('doctors', 'DoctorController@store');
-Route::put('doctors/{doctors}', 'DoctorController@update');
-Route::delete('doctors/{doctors}', 'DoctorController@delete');
+Route::get('specialties', 'SpecialtyController@index');
+Route::get('specialties/{appointments}', 'SpecialtyController@show');
+Route::post('specialties', 'SpecialtyController@store');
+Route::put('specialties/{specialties}', 'SpecialtyController@update');
+Route::delete('specialties/{specialties}', 'SpecialtyController@delete');
+
+

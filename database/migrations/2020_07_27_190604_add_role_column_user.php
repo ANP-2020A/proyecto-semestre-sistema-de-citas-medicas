@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateQuotesTable extends Migration
+class AddRoleColumnUser extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateQuotesTable extends Migration
      */
     public function up()
     {
-        Schema::create('quotes', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->DateTime('datetime');//revisar
-            $table->string('description');
-            $table->boolean('state');//revisar
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('role')->default(\App\User::ROLE_PACIENTE);
         });
     }
 
@@ -29,6 +25,8 @@ class CreateQuotesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('quotes');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('role');
+        });
     }
 }

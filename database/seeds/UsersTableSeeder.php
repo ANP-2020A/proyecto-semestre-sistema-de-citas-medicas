@@ -21,15 +21,26 @@ class UsersTableSeeder extends Seeder
         $password = Hash::make('123456');
         User::create([
             'name' => 'Administrador',
+            'lastname' => 'prueba',
+            'Fecha nacimiento' => '1993-07-29',
+            'cedula' => '1721130993',
+            'telefono' => '987115138',
             'email' => 'admin@prueba.com',
             'password' => $password,
+            'specialty_id' => '2'
         ]);
 
-        for ($i = 0; $i < 10; $i++) {
+        $specialties = App\Specialty::all();
+        foreach ($specialties as $specialties) {
             User::create([
-                'name' => $faker->name,
+                'name' => $faker->firstName,
+                'lastname' => $faker->lastName,
+                'Fecha nacimiento' => $faker->date('Y-m-d'),
+                'cedula' => $faker->numberBetween(1712654897,1794879546),
+                'telefono' => $faker->numberBetween(911111111,999999999),
                 'email' => $faker->email,
                 'password' => $password,
+                'specialty_id' => $specialties->id,
             ]);
         }
     }

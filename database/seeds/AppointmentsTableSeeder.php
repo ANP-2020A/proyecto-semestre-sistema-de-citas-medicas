@@ -1,9 +1,8 @@
 <?php
-
-use App\Quote;
+use App\Appointment;
 use Illuminate\Database\Seeder;
 
-class QuotesTableSeeder extends Seeder
+class AppointmentsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,16 +12,17 @@ class QuotesTableSeeder extends Seeder
     public function run()
     {
         //Vaciar la tabla.
-        Quote::truncate();
+        Appointment::truncate();
         $faker = \Faker\Factory::create();
 
         // Crear citas ficticias en la tabla
         for($i = 0; $i < 10; $i++) {
-            Quote::create([
+            Appointment::create([
                 'datetime'=> $faker->date('Y-m-d'),
                 'description'=> $faker->paragraph,
-                'state'=> $faker->state,
-                ]);
+                'state'=> $faker->boolean,
+                'time'=> $faker->time('H:i:s'),
+            ]);
         }
     }
 }
