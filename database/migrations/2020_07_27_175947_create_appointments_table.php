@@ -17,7 +17,7 @@ class CreateAppointmentsTable extends Migration
             $table->bigIncrements('id');
             $table->DateTime('datetime');//revisar
             $table->string('description');
-            $table->boolean('state');//revisar
+            $table->enum('status', ['Atendido','Pendiente','Cancelado']);//revisar
             $table->time('time');
             $table->timestamps();
         });

@@ -20,7 +20,7 @@ class AppointmentsTableSeeder extends Seeder
             Appointment::create([
                 'datetime'=> $faker->date('Y-m-d'),
                 'description'=> $faker->paragraph,
-                'state'=> $faker->boolean,
+                'status'=> 'Pendiente',
                 'time'=> $faker->time('H:i:s'),
             ]);
         }
