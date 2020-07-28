@@ -17,8 +17,19 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'lastname', 'Fecha nacimiento', 'cedula', 'telefono', 'email', 'password','specialty_id'
     ];
+    const ROLE_SUPERADMIN = 'ROLE_SUPERADMIN';
+    const ROLE_DOCTOR = 'ROLE_DOCTOR';
+    const ROLE_PACIENTE = 'ROLE_PACIENTE';
+
+    private const ROLES_HIERARCHY = [
+        self::ROLE_SUPERADMIN => [self::ROLE_DOCTOR],
+        self::ROLE_DOCTOR => [self::ROLE_PACIENTE],
+        self::ROLE_PACIENTE => []
+    ];
+
+
 
     /**
      * The attributes that should be hidden for arrays.
@@ -44,4 +55,27 @@ class User extends Authenticatable implements JWTSubject
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function specialty() {
+        return $this->belongsTo('App\Specialty');
+    }
+
+    public function isGranted($role) {
+        if ($role === $this->role) {
+            return true;
+        }
+        return self::isRoleInHierarchy($role, self::ROLES_HIERARCHY[$this->role]);
+    }
+    private static function isRoleInHierarchy($role, $role_hierarchy) {
+        if (in_array($role, $role_hierarchy)) {
+            return true;
+        }
+        foreach ($role_hierarchy as $role_included) {
+            if(self::isRoleInHierarchy($role,self::ROLES_HIERARCHY[$role_included])) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
