@@ -22,9 +22,10 @@ class UsersTableSeeder extends Seeder
         User::create([
             'name' => 'Administrador',
             'lastname' => 'prueba',
-            'Fecha nacimiento' => '1993-07-29',
-            'cedula' => '1721130993',
-            'telefono' => '987115138',
+            'birthdate' => '1993-07-29',
+            'idcard' => '1721130993',
+            'phone' => '987115138',
+            'address' => 'Valle de los chillos',
             'email' => 'admin@prueba.com',
             'password' => $password,
             'specialty_id' => '2'
@@ -35,9 +36,10 @@ class UsersTableSeeder extends Seeder
             User::create([
                 'name' => $faker->firstName,
                 'lastname' => $faker->lastName,
-                'Fecha nacimiento' => $faker->date('Y-m-d'),
-                'cedula' => $faker->numberBetween(1712654897,1794879546),
-                'telefono' => $faker->numberBetween(911111111,999999999),
+                'birthdate' => $faker->date("Y-m-d H:i:s"),
+                'idcard' => $faker->numberBetween(1712654897,1794879546),
+                'phone' => $faker->numberBetween(911111111,999999999),
+                'address' => $faker->address,
                 'email' => $faker->email,
                 'password' => $password,
                 'specialty_id' => $specialties->id,
