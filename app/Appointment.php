@@ -21,5 +21,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Appointment extends Model
 {
-    protected $fillable = ['datetime', 'description', 'state', 'time'];
+    protected $fillable = ['datetime', 'description', 'status', 'time'];
 }
