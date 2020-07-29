@@ -29,12 +29,14 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'lastname' => 'required',
-            'Fecha nacimiento' => 'required',
-            'cedula' => 'required',
-            'telefono' => 'required',
+            'birthdate' => 'required',
+            'idcard' => 'required',
+            'phone' => 'required',
+            'address' => 'required',
             'email' => 'required|string|email|max:255',
             'password' => 'required|string|min:6|confirmed',
-            'specialty_id' => 'required'
+            'specialty_id' => 'required',
+            //'image' => 'required|image|dimensions:min_width=200,min_height=200',
 
         ]);
         if($validator->fails()){
@@ -43,14 +45,22 @@ class UserController extends Controller
         $user = User::create([
             'name' => $request->get('name'),
             'lastname' => $request->get('lastname'),
-            'Fecha nacimiento' => $request->get('Fecha nacimiento'),
-            'cedula' => $request->get('cedula'),
-            'telefono' => $request->get('telefono'),
-            'email' => $request->get('email'),
+            'birthdate' => $request->get('birthdate'),
+            'idcard' => $request->get('idcard'),
+            'phone' => $request->get('phone'),
+            'address' => $request->get('address'),
+            'email' => $request->get('Email'),
             'password' => Hash::make($request->get('password')),
-            'specialty_id' => $request->get('specialty_id')
+            'specialty_id' => $request->get('specialty_id'),
+            //'image' => $request->get('image'),
 
         ]);
+
+    /*    $user = new User($request->all());
+        $path = $request->image->register('public/users');
+        $user->image = $path;
+        $user->save();*/
+
         $token = JWTAuth::fromUser($user);
         return response()->json(compact('user','token'),201);
     }
@@ -69,3 +79,4 @@ class UserController extends Controller
         return response()->json(compact('user'));
     }
 }
+

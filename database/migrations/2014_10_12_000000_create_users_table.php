@@ -17,9 +17,10 @@ class CreateUsersTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('lastname');
-            $table->date('Fecha nacimiento');
-            $table->integer('cedula')->unique();
-            $table->integer('telefono');
+            $table->DateTime('birthdate');
+            $table->integer('idcard')->unique();
+            $table->integer('phone');
+            $table->string('address');
             $table->string('email')->unique();
             $table->string('password');
             //$table->unsignedBigInteger('specialty_id')->unsigned();

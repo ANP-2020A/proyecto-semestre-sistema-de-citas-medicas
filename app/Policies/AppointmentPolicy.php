@@ -59,7 +59,7 @@ class AppointmentPolicy
      */
     public function update(User $user, Appointment $appointment)
     {
-        return $user->isGranted(User::ROLE_USER) && $user->id === $appointment->user_id;
+        return $user->isGranted(User::ROLE_PACIENTE) && $user->id === $appointment->user_id;
     }
 
     /**

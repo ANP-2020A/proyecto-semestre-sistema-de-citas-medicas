@@ -1,8 +1,8 @@
 <?php
 
 use App\Appointment;
-use App\Pacients;
-use App\Doctor;
+use App\Specialty;
+use App\User;
 use Illuminate\Http\Request;
 
 /*
@@ -23,10 +23,12 @@ use Illuminate\Http\Request;
 
 Route::post('register', 'UserController@register');
 Route::post('login', 'UserController@authenticate');
+
+Route::group(['middleware' => ['jwt.verify']], function() {
+
 //Route::get('appointments', 'AppointmentController@index');
 //Route::get('specialties', 'SpecialtyController@index');
 
-//Route::group(['middleware' => ['jwt.verify']], function() {
   //  Route::get('user', 'UserController@getAuthenticatedUser');
 
     //appointments
@@ -43,5 +45,4 @@ Route::post('login', 'UserController@authenticate');
     Route::put('specialties/{specialties}', 'SpecialtyController@update');
     Route::delete('specialties/{specialties}', 'SpecialtyController@delete');
 
-//});
-
+});
