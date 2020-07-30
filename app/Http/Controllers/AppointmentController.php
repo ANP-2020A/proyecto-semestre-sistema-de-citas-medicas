@@ -4,22 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Appointment;
 use App\Http\Resources\Appointment as AppointmentResource;
-use App\Http\User;
+use App\User;
 use Illuminate\Http\Request;
 
 class AppointmentController extends Controller
 {
-    public function index() //User $user
+    public function index(User $users) //User $user
     {
         //$this->authorize('viewAny', Appointment::class);
-        //return response()->json(AppointmentResource::collection($user->appointments),200);
+        //return response()->json(AppointmentResource::collection($users->appointments),200);
        return Appointment::all();
     }
-    public function show(Appointment $appointment)
+    public function show(Appointment $appointments)
     {
         //return response()->json(new AppointmentResource($appointment),200);
         //$this->authorize('view', $appointments);
-        //return $appointments;
+        return $appointments;
     }
     public function store(Request $request)
     {
