@@ -28,8 +28,8 @@ class AppointmentController extends Controller
         ], self::$messages);
 
 
-        $article = Article::create($request->all());
-        return response()->json($article, 201);
+        $appointments = Appointment::create($request->all());
+        return response()->json($appointments, 201);
     }
     public function update(Request $request, Appointment $appointments)
     {
@@ -43,7 +43,8 @@ class AppointmentController extends Controller
         //$appointments->delete();
         //return response()->json(null, 204);
         $appointments->status = 'Cerrado';
-        $appointments->update($appointments->all());
+        //$appointments->update($appointments->all());
+        $appointments->update($appointments->toArray());
         return response()->json($appointments, 200);
     }
 }

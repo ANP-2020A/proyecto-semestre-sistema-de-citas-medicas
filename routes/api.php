@@ -50,7 +50,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 
     //specialties
 
-    Route::get('specialties/{appointments}', 'SpecialtyController@show');
+    Route::get('specialties/{specialties}', 'SpecialtyController@show');
     Route::post('specialties', 'SpecialtyController@store');
     Route::put('specialties/{specialties}', 'SpecialtyController@update');
     Route::delete('specialties/{specialties}', 'SpecialtyController@delete');
