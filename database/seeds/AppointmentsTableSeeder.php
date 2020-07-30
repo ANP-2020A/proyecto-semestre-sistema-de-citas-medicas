@@ -23,8 +23,8 @@ class AppointmentsTableSeeder extends Seeder
             //iniciamos sesión con este usuario
             JWTAuth::attempt(['email' => $user->email, 'password' => '123456']);
             // Y ahora con este usuario creamos algunos articulos
-            $num_appointments = 10;
-            for ($j = 0; $j < $num_appointments; $j++) {
+           $num_appointments = 10;
+            for ($j = 0; $j < $num_appointments; $j++){
                 Appointment::create([
                     'datetime'=> $faker->date('Y-m-d'),
                     'description'=> $faker->paragraph,
