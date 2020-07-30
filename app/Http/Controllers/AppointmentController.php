@@ -3,31 +3,41 @@
 namespace App\Http\Controllers;
 
 use App\Appointment;
+use App\Http\Resources\Appointment as AppointmentResource;
+use App\Http\User;
 use Illuminate\Http\Request;
 
 class AppointmentController extends Controller
 {
-    public function index()
+    public function index() //User $user
     {
-
         //$this->authorize('viewAny', Appointment::class);
-        return Appointment::all();
+        //return response()->json(AppointmentResource::collection($user->appointments),200);
+       return Appointment::all();
     }
-    public function show(Appointment $appointments)
+    public function show(Appointment $appointment)
     {
-  $this->authorize('view', $appointments);
-
-        return $appointments;
+        //return response()->json(new AppointmentResource($appointment),200);
+        //$this->authorize('view', $appointments);
+        //return $appointments;
     }
     public function store(Request $request)
     {
+        $messages =[
+            'required' => "El campo :attribute es obligatorio",
+            'datetime.required' => "La fecha es obligatoria",
+            'description.required' => "La descripcion es obligatoria y no debe
+            pasarse los 100 caracteres",
+            'time.required' => "La hora es obligatoria",
+
+        ];
         $this->authorize('create', Appointment::class);
         $request->validate([
-            'datetime' => 'required',
+            'datetime' => 'required|unique:appointments',
             'description' => 'required|string|max:100',
             'status' => 'required',
-            'time' => 'required'
-        ], self::$messages);
+            'time' => 'required|unique:appointments',
+        ], $messages);
 
 
         $appointments = Appointment::create($request->all());
@@ -35,8 +45,21 @@ class AppointmentController extends Controller
     }
     public function update(Request $request, Appointment $appointments)
     {
+        $messages =[
+            'required' => "El campo :attribute es obligatorio",
+            'datetime.required' => "La fecha es obligatoria",
+            'description.required' => "La descripcion es obligatoria y no debe
+            pasarse los 100 caracteres",
+            'time.required' => "La hora es obligatoria",
 
+        ];
         $this->authorize('update', $appointments);
+        $request->validate([
+            'datetime' => 'required|unique:appointments',
+            'description' => 'required|string|max:100',
+            'status' => 'required',
+            'time' => 'required|unique:appointments',
+        ],$messages);
         $appointments->update($request->all());
         return response()->json($appointments, 200);
     }

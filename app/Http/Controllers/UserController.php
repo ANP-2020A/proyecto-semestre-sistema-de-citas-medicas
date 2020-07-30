@@ -37,19 +37,27 @@ class UserController extends Controller
         return response()->json(compact('token'));
     }
     public function register(Request $request){
+
+        $messages =[
+            'name.required' => "El nombre es obligatorio",
+            'lastname.required' => "El apellido es obligatorio",
+            'birthdate.required' => "La hora es obligatoria y use el formato correcto",
+            'idcard.required' => "La cedula  debe tener  10 digitos",
+            'phone.required' => "El numero de telefono no debe tener mas de 11 digitos ",
+            'email.required' => "El correo es obligatorio debe ser de maximo 50 caracteres",
+        ];
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:30',
             'lastname' => 'required|string|max:30',
             'birthdate' => 'required',
-            'idcard' => 'required|integer|max:10',
-            'phone' => 'required|integer|max:11',
+            'idcard' => 'required|integer|unique:users|min:10|max:10',
+            'phone' => 'required|integer|unique:users|max:11',
             'address' => 'required|string|max:50',
-            'email' => 'required|string|email|max:50',
+            'email' => 'required|string|unique:users|email|max:50',
             'password' => 'required|string|min:6|confirmed',
             'specialty_id' => 'required',
             //'image' => 'required|image|dimensions:min_width=200,min_height=200',
-
-        ]);
+        ],$messages);
         if($validator->fails()){
             return response()->json($validator->errors()->toJson(), 400);
         }
