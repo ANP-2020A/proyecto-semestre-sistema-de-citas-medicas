@@ -9,12 +9,14 @@ class AppointmentController extends Controller
 {
     public function index()
     {
-//$this->authorize('viewAny', Appointment::class);
+
+        //$this->authorize('viewAny', Appointment::class);
         return Appointment::all();
     }
     public function show(Appointment $appointments)
     {
-// $this->authorize('view', $appointments);
+  $this->authorize('view', $appointments);
+
         return $appointments;
     }
     public function store(Request $request)
@@ -34,12 +36,14 @@ class AppointmentController extends Controller
     public function update(Request $request, Appointment $appointments)
     {
 
-//$this->authorize('update', $appointments);
+        $this->authorize('update', $appointments);
         $appointments->update($request->all());
         return response()->json($appointments, 200);
     }
     public function delete(Appointment $appointments)
     {
+        $this->authorize('delete', $appointments);
+
         //$appointments->delete();
         //return response()->json(null, 204);
         $appointments->status = 'Cerrado';
