@@ -13,6 +13,11 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 
 class UserController extends Controller
 {
+
+    public function index()
+    {
+        return User::all();
+    }
     public function authenticate(Request $request) {
         $credentials = $request->only('email', 'password');
         try {

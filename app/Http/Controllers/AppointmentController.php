@@ -33,8 +33,12 @@ class AppointmentController extends Controller
     }
     public function delete(Appointment $appointments)
     {
-        $appointments->delete();
-
-        return response()->json(null, 204);
+        $appointments->status = 'cancelado';
+        $appointments->update($appointments->all());
+        return response()->json($appointments, 200);
     }
+
+
+
+
 }

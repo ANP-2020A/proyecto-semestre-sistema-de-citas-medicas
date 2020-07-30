@@ -23,26 +23,35 @@ use Illuminate\Http\Request;
 
 Route::post('register', 'UserController@register');
 Route::post('login', 'UserController@authenticate');
+Route::get('users', 'UserController@index');
+Route::get('appointments', 'AppointmentController@index');
+Route::get('specialties', 'SpecialtyController@index');
+Route::delete('appointments/{appointments}', 'AppointmentController@delete');
+Route::get('users/{users}/appointments', 'AppointmentController@index');
 
 Route::group(['middleware' => ['jwt.verify']], function() {
 
 //Route::get('appointments', 'AppointmentController@index');
 //Route::get('specialties', 'SpecialtyController@index');
 
-  //  Route::get('user', 'UserController@getAuthenticatedUser');
+    Route::get('user', 'UserController@getAuthenticatedUser');
+
 
     //appointments
-    Route::get('appointments', 'AppointmentController@index');
+
     Route::get('appointments/{appointments}', 'AppointmentController@show');
     Route::post('appointments', 'AppointmentController@store');
     Route::put('appointments/{appointments}', 'AppointmentController@update');
-    Route::delete('appointments/{appointments}', 'AppointmentController@delete');
+
 
     //specialties
-    Route::get('specialties', 'SpecialtyController@index');
+
     Route::get('specialties/{appointments}', 'SpecialtyController@show');
     Route::post('specialties', 'SpecialtyController@store');
     Route::put('specialties/{specialties}', 'SpecialtyController@update');
     Route::delete('specialties/{specialties}', 'SpecialtyController@delete');
+
+
+
 
 });
