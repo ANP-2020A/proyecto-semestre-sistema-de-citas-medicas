@@ -19,10 +19,17 @@ class AppointmentController extends Controller
     }
     public function store(Request $request)
     {
-//$this->authorize('create', Appointment::class);
-        $appointments = Appointment::create($request->all());
+        $this->authorize('create', Appointment::class);
+        $request->validate([
+            'datetime' => 'required',
+            'description' => 'required|string|max:100',
+            'status' => 'required',
+            'time' => 'required'
+        ], self::$messages);
 
-        return response()->json($appointments, 201);
+
+        $article = Article::create($request->all());
+        return response()->json($article, 201);
     }
     public function update(Request $request, Appointment $appointments)
     {
@@ -33,8 +40,10 @@ class AppointmentController extends Controller
     }
     public function delete(Appointment $appointments)
     {
-        $appointments->delete();
-
-        return response()->json(null, 204);
+        //$appointments->delete();
+        //return response()->json(null, 204);
+        $appointments->status = 'Cerrado';
+        $appointments->update($appointments->all());
+        return response()->json($appointments, 200);
     }
 }

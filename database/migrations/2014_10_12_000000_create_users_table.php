@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('lastname');
             $table->DateTime('birthdate');
             $table->integer('idcard')->unique();
-            $table->integer('phone');
+            $table->integer('phone')->unique();
             $table->string('address');
             $table->string('email')->unique();
             $table->string('password');
