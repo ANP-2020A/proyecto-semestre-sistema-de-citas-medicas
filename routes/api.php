@@ -23,23 +23,33 @@ use Illuminate\Http\Request;
 
 Route::post('register', 'UserController@register');
 Route::post('login', 'UserController@authenticate');
+Route::delete('appointments/{appointments}', 'AppointmentController@delete');
+
+Route::get('users/{user}/appointments', 'CommentController@index');
+
+Route::get('users', 'UserController@index');
+Route::get('appointments', 'AppointmentController@index');
+Route::get('specialties', 'SpecialtyController@index');
+
+Route::get('users/{users}', 'UserController@show');
 
 Route::group(['middleware' => ['jwt.verify']], function() {
 
 //Route::get('appointments', 'AppointmentController@index');
 //Route::get('specialties', 'SpecialtyController@index');
 
-  //  Route::get('user', 'UserController@getAuthenticatedUser');
+    Route::get('user', 'UserController@getAuthenticatedUser');
+
 
     //appointments
-    Route::get('appointments', 'AppointmentController@index');
+
     Route::get('appointments/{appointments}', 'AppointmentController@show');
     Route::post('appointments', 'AppointmentController@store');
     Route::put('appointments/{appointments}', 'AppointmentController@update');
-    Route::delete('appointments/{appointments}', 'AppointmentController@delete');
+
 
     //specialties
-    Route::get('specialties', 'SpecialtyController@index');
+
     Route::get('specialties/{appointments}', 'SpecialtyController@show');
     Route::post('specialties', 'SpecialtyController@store');
     Route::put('specialties/{specialties}', 'SpecialtyController@update');

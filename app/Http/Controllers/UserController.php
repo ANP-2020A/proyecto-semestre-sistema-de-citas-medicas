@@ -13,6 +13,17 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 
 class UserController extends Controller
 {
+
+    public function index()
+    {
+        return User::all();
+    }
+
+    public function show(User $users)
+    {
+    // $this->authorize('view', $appointments);
+        return $users;
+    }
     public function authenticate(Request $request) {
         $credentials = $request->only('email', 'password');
         try {
@@ -27,13 +38,13 @@ class UserController extends Controller
     }
     public function register(Request $request){
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'lastname' => 'required',
+            'name' => 'required|string|max:30',
+            'lastname' => 'required|string|max:30',
             'birthdate' => 'required',
-            'idcard' => 'required',
-            'phone' => 'required',
-            'address' => 'required',
-            'email' => 'required|string|email|max:255',
+            'idcard' => 'required|integer|max:10',
+            'phone' => 'required|integer|max:11',
+            'address' => 'required|string|max:50',
+            'email' => 'required|string|email|max:50',
             'password' => 'required|string|min:6|confirmed',
             'specialty_id' => 'required',
             //'image' => 'required|image|dimensions:min_width=200,min_height=200',
@@ -56,10 +67,10 @@ class UserController extends Controller
 
         ]);
 
-    /*    $user = new User($request->all());
-        $path = $request->image->register('public/users');
-        $user->image = $path;
-        $user->save();*/
+        /*    $user = new User($request->all());
+            $path = $request->image->register('public/users');
+            $user->image = $path;
+            $user->save();*/
 
         $token = JWTAuth::fromUser($user);
         return response()->json(compact('user','token'),201);
@@ -79,4 +90,3 @@ class UserController extends Controller
         return response()->json(compact('user'));
     }
 }
-
