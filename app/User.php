@@ -18,7 +18,7 @@ class User extends Authenticatable implements JWTSubject
      */
     protected $fillable = [
         'name', 'lastname', 'birthdate', 'idcard', 'phone', 'address', 'email', 'password','specialty_id'
-        , 'image'
+        , 'status'
     ];
     const ROLE_SUPERADMIN = 'ROLE_SUPERADMIN';
     const ROLE_DOCTOR = 'ROLE_DOCTOR';

@@ -24,6 +24,18 @@ class UserController extends Controller
     // $this->authorize('view', $appointments);
         return $users;
     }
+
+    public function update(Request $request, User $users)
+    {
+
+        //$this->authorize('update', $users);
+
+
+        $users->status = 'activo';
+        //$appointments->update($appointments->all());
+        $users->update($users->toArray());
+        return response()->json($users, 200);
+    }
     public function authenticate(Request $request) {
         $credentials = $request->only('email', 'password');
         try {
@@ -56,7 +68,7 @@ class UserController extends Controller
             'email' => 'required|string|unique:users|email|max:50',
             'password' => 'required|string|min:6|confirmed',
             'specialty_id' => 'required',
-            //'image' => 'required|image|dimensions:min_width=200,min_height=200',
+            'status' => 'required',
         ],$messages);
         if($validator->fails()){
             return response()->json($validator->errors()->toJson(), 400);
@@ -71,7 +83,7 @@ class UserController extends Controller
             'email' => $request->get('Email'),
             'password' => Hash::make($request->get('password')),
             'specialty_id' => $request->get('specialty_id'),
-            //'image' => $request->get('image'),
+            'status' => $request->get('status'),
 
         ]);
 
