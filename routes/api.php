@@ -28,11 +28,12 @@ Route::get('users', 'UserController@index');
 Route::get('appointments', 'AppointmentController@index');
 Route::get('specialties', 'SpecialtyController@index');
 Route::get('users/{users}', 'UserController@show');
-Route::put('users/{users}', 'UserController@update');
+
 
 Route::group(['middleware' => ['jwt.verify']], function() {
 
     Route::get('user', 'UserController@getAuthenticatedUser');
+    Route::put('users/{users}', 'UserController@update');
 
 
     /*Route::get('appointments/{appointments}', 'AppointmentController@show');
