@@ -17,9 +17,10 @@ class AppointmentController extends Controller
     }
     public function show(Appointment $appointments)
     {
-        //return response()->json(new AppointmentResource($appointment),200);
+
+        return response()->json(new AppointmentResource($appointments),200);
         //$this->authorize('view', $appointments);
-        return $appointments;
+        //return $appointments;
     }
     public function store(Request $request)
     {

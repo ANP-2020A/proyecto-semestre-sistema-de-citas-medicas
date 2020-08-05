@@ -58,7 +58,7 @@ class UserPolicy
      */
     public function update(User $user)
     {
-        return $user->isGranted(User::ROLE_SUPERADMIN);
+        return  $user->id === $user->id;
     }
 
     /**

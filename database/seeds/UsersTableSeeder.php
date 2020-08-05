@@ -29,22 +29,21 @@ class UsersTableSeeder extends Seeder
             'email' => 'admin@prueba.com',
             'password' => $password,
             //'specialty_id' => '2',
-            'status' => 'activo'
+            'status' => 'activo',
+            'role' => 'ROLE_SUPERADMIN',
         ]);
 
-        $specialties = App\Specialty::all();
-        foreach ($specialties as $specialties) {
+        for ($i = 0; $i < 5; $i++) {
             User::create([
                 'name' => $faker->firstName,
                 'lastname' => $faker->lastName,
                 'birthdate' => $faker->date("Y-m-d H:i:s"),
-                'idcard' => $faker->numberBetween(1712654897,1794879546),
-                'phone' => $faker->numberBetween(911111111,999999999),
+                'idcard' => $faker->numberBetween(1712654897, 1794879546),
+                'phone' => $faker->numberBetween(911111111, 999999999),
                 'address' => $faker->address,
                 'email' => $faker->email,
                 'password' => $password,
-                'specialty_id' => $specialties->id,
-                'status'=> 'inactivo',
+                'status' => 'inactivo',
             ]);
         }
     }

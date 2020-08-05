@@ -1,18 +1,27 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\User;
-use http\Env\Response;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use App\Http\Resources\User as UserResource;
 
 
 class UserController extends Controller
 {
+private static $messages =[
+'name.required' => 'El nombre es obligatorio',
+'lastname.required' => 'El apellido es obligatorio',
+'birthdate.required' => 'La fecha es obligatoria y use el formato correcto',
+'idcard.required' => 'La cedula  debe tener  10 digitos',
+'phone.required' => 'El numero de telefono no debe tener mas de 11 digitos ',
+'email.required' => 'El correo es obligatorio debe ser de maximo 50 caracteres',
+];
+
 
     public function index()
     {
@@ -21,7 +30,7 @@ class UserController extends Controller
 
     public function show(User $users)
     {
-    // $this->authorize('view', $appointments);
+        // $this->authorize('view', $appointments);
         return $users;
     }
 
@@ -33,8 +42,12 @@ class UserController extends Controller
 
         $users->status = 'activo';
         //$appointments->update($appointments->all());
+       // $users->update($request->all());
         $users->update($users->toArray());
         return response()->json($users, 200);
+
+
+
     }
     public function authenticate(Request $request) {
         $credentials = $request->only('email', 'password');
@@ -50,26 +63,19 @@ class UserController extends Controller
     }
     public function register(Request $request){
 
-        $messages =[
-            'name.required' => "El nombre es obligatorio",
-            'lastname.required' => "El apellido es obligatorio",
-            'birthdate.required' => "La hora es obligatoria y use el formato correcto",
-            'idcard.required' => "La cedula  debe tener  10 digitos",
-            'phone.required' => "El numero de telefono no debe tener mas de 11 digitos ",
-            'email.required' => "El correo es obligatorio debe ser de maximo 50 caracteres",
-        ];
+$status ='inactivo';
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:30',
             'lastname' => 'required|string|max:30',
             'birthdate' => 'required',
-            'idcard' => 'required|integer|unique:users',// |max:10',
-            'phone' => 'required|integer|unique:users', //|max:9',
+            'idcard' => 'required|integer|unique:users',//|max:11',
+            'phone' => 'required|integer|unique:users',//|max:9',
             'address' => 'required|string|max:50',
             'email' => 'required|string|unique:users|email|max:50',
             'password' => 'required|string|min:6|confirmed',
-            //'specialty_id' => 'required',
+
             'status' => 'required',
-        ],$messages);
+        ],self::$messages);
         if($validator->fails()){
             return response()->json($validator->errors()->toJson(), 400);
         }
@@ -83,7 +89,8 @@ class UserController extends Controller
             'email' => $request->get('email'),
             'password' => Hash::make($request->get('password')),
             //'specialty_id' => $request->get('specialty_id'),
-            'status' => $request->get('status'),
+            'status' => $status,
+           // 'role' => $request->get('role')
 
         ]);
 
@@ -92,8 +99,11 @@ class UserController extends Controller
             $user->image = $path;
             $user->save();*/
 
+
+
         $token = JWTAuth::fromUser($user);
-        return response()->json(compact('user','token'),201);
+
+        return response()->json(compact('user', 'token'),201);
     }
     public function getAuthenticatedUser(){
         try{
@@ -107,6 +117,6 @@ class UserController extends Controller
         } catch (Tymon\JWTAuth\Exceptions\JWTException $e) {
             return response()->json(['token_absent'], $e->getStatusCode());
         }
-        return response()->json(compact('user'));
+        return response()->json(new UserResource($user));
     }
 }
