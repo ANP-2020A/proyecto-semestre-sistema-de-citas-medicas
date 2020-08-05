@@ -17,7 +17,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'lastname', 'birthdate', 'idcard', 'phone', 'address', 'email', 'password','specialty_id'
+        'name', 'lastname', 'birthdate', 'idcard', 'phone', 'address', 'email', 'password'
         , 'status'
     ];
     const ROLE_SUPERADMIN = 'ROLE_SUPERADMIN';
@@ -61,9 +61,9 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany('App\Appointment');
     }
 
-    public function specialty() {
+   /* public function specialty() {
         return $this->belongsTo('App\Specialty');
-    }
+    }*/
 
     public function isGranted($role) {
         if ($role === $this->role) {
@@ -81,5 +81,9 @@ class User extends Authenticatable implements JWTSubject
             }
         }
         return false;
+    }
+
+    public function userable() {
+        return $this->morphTo();
     }
 }

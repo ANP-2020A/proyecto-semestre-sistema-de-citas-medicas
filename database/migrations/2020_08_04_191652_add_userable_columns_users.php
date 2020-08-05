@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddSpecialtyIdColumnUser extends Migration
+class AddUserableColumnsUsers extends Migration
 {
     /**
      * Run the migrations.
@@ -14,10 +14,8 @@ class AddSpecialtyIdColumnUser extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-
-            $table->unsignedBigInteger('specialty_id');
-            $table->foreign('specialty_id')->references('id')->on('specialties')->onDelete('restrict');
-
+            $table->integer('userable_id')->nullable();
+            $table->string('userable_type')->nullable();
         });
     }
 
@@ -29,7 +27,8 @@ class AddSpecialtyIdColumnUser extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropForeign(['specialty_id']);
+            $table->dropColumn('userable_id');
+            $table->dropColumn('userable_type');
         });
     }
 }

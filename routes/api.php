@@ -26,7 +26,6 @@ Route::post('login', 'UserController@authenticate');
 
 Route::get('users', 'UserController@index');
 Route::get('appointments', 'AppointmentController@index');
-Route::get('specialties', 'SpecialtyController@index');
 Route::get('users/{users}', 'UserController@show');
 
 
@@ -44,18 +43,20 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 */
 
         //appointments para ver a a que usuario le pertenece la cita
-        Route::get('users/{users}/appointments', 'AppointmentController@index');
-        Route::get('users/{users}/appointments/{appointment}', 'AppointmentController@show');
+        Route::get('users/{user}/appointments', 'AppointmentController@index');
+        Route::get('users/{user}/appointments/{appointment}', 'AppointmentController@show');
+
+        Route::get('appointments/{appointments}', 'AppointmentController@show');
         Route::post('appointments', 'AppointmentController@store');
         Route::put('appointments/{appointments}', 'AppointmentController@update');
         Route::delete('appointments/{appointments}', 'AppointmentController@delete');
 
 
     //specialties
-
+/*
     Route::get('specialties/{specialties}', 'SpecialtyController@show');
     Route::post('specialties', 'SpecialtyController@store');
     Route::put('specialties/{specialties}', 'SpecialtyController@update');
-    Route::delete('specialties/{specialties}', 'SpecialtyController@delete');
+    Route::delete('specialties/{specialties}', 'SpecialtyController@delete');*/
 
 });
