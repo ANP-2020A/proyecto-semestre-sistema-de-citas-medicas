@@ -28,7 +28,7 @@ class UsersTableSeeder extends Seeder
             'address' => 'Valle de los chillos',
             'email' => 'admin@prueba.com',
             'password' => $password,
-            'specialty_id' => '2',
+            //'specialty_id' => '2',
             'status' => 'activo'
         ]);
 

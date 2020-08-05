@@ -67,7 +67,7 @@ class UserController extends Controller
             'address' => 'required|string|max:50',
             'email' => 'required|string|unique:users|email|max:50',
             'password' => 'required|string|min:6|confirmed',
-            'specialty_id' => 'required',
+            //'specialty_id' => 'required',
             'status' => 'required',
         ],$messages);
         if($validator->fails()){
@@ -82,7 +82,7 @@ class UserController extends Controller
             'address' => $request->get('address'),
             'email' => $request->get('email'),
             'password' => Hash::make($request->get('password')),
-            'specialty_id' => $request->get('specialty_id'),
+            //'specialty_id' => $request->get('specialty_id'),
             'status' => $request->get('status'),
 
         ]);
