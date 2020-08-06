@@ -48,10 +48,10 @@ class AppointmentController extends Controller
         $appointments = Appointment::create($request->all());
         return response()->json($appointments, 201);
     }
-    public function update(Request $request, Appointment $appointment)
+    public function update(Request $request, Appointment $appointments)
     {
 
-        $this->authorize('update', $appointment);
+        $this->authorize('update', $appointments);
         $messages =[
             'required' => "El campo :attribute es obligatorio",
             'datetime.required' => "La fecha es obligatoria",
@@ -67,18 +67,22 @@ class AppointmentController extends Controller
             'status' => 'required',
             'time' => 'required|unique:appointments',
         ],$messages);
-        $appointment->update($request->all());
-        return response()->json($appointment, 200);
+       //$appointment->update($request->all());
+        //return response()->json($appointment, 200);
+        $appointments = new Appointment($request->all());
+        return response()->json(new AppointmentResource($appointments), 200);
+
+
     }
-    public function delete(Appointment $appointment)
+    public function delete(Appointment $appointments)
     {
-        $this->authorize('delete', $appointment);
+        $this->authorize('delete', $appointments);
 
         //$appointments->delete();
         //return response()->json(null, 204);
-        $appointment->status = 'Cerrado';
+        $appointments->status = 'Cerrado';
         //$appointments->update($appointments->all());
-        $appointment->update($appointment->toArray());
-        return response()->json($appointment, 200);
+        $appointments->update($appointments->toArray());
+        return response()->json($appointments, 200);
     }
 }

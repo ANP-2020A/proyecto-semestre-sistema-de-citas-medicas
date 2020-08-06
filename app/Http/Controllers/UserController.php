@@ -31,7 +31,8 @@ private static $messages =[
     public function show(User $users)
     {
         // $this->authorize('view', $appointments);
-        return $users;
+       return $users;
+
     }
 
     public function update(Request $request, User $users)
