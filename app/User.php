@@ -61,9 +61,6 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany('App\Appointment');
     }
 
-   /* public function specialty() {
-        return $this->belongsTo('App\Specialty');
-    }*/
 
     public function isGranted($role) {
         if ($role === $this->role) {
