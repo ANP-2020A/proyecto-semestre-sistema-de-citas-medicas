@@ -57,7 +57,7 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
-    public function appointment(){
+    public function appointments(){
         return $this->hasMany('App\Appointment');
     }
 

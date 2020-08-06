@@ -33,7 +33,7 @@ class UsersTableSeeder extends Seeder
             'role' => 'ROLE_SUPERADMIN',
         ]);
 
-        for ($i = 0; $i < 5; $i++) {
+        for ($i = 0; $i < 3; $i++) {
             User::create([
                 'name' => $faker->firstName,
                 'lastname' => $faker->lastName,

@@ -10,21 +10,20 @@ class AppointmentPolicy
 {
     use HandlesAuthorization;
 
+    public function before($user, $ability) {
+        if ($user->isGranted(User::ROLE_SUPERADMIN)) {
+            return true;
+        }
+    }
     /**
      * Determine whether the user can view any appointments.
      *
      * @param  \App\User  $user
      * @return mixed
      */
-
-    public function before($user, $ability) {
-        if ($user->isGranted(User::ROLE_SUPERADMIN)) {
-            return true;
-        }
-    }
     public function viewAny(User $user)
     {
-        return $user->isGranted(User::ROLE_DOCTOR);
+        return $user->isGranted(User::ROLE_DOCTOR) && $user->isGranted(User::ROLE_PACIENTE);
     }
 
     /**
@@ -36,7 +35,7 @@ class AppointmentPolicy
      */
     public function view(User $user, Appointment $appointment)
     {
-        return $user->isGranted(User::ROLE_DOCTOR) || User::ROLE_PACIENTE && $user->id === $appointment->user_id ;
+        return $user->isGranted(User::ROLE_DOCTOR) && $user->isGranted(User::ROLE_PACIENTE) && $user->id === $appointment->user_id;
     }
 
     /**
@@ -47,7 +46,7 @@ class AppointmentPolicy
      */
     public function create(User $user)
     {
-        return $user->isGranted(User::ROLE_DOCTOR) || User::ROLE_PACIENTE;
+        return $user->isGranted(User::ROLE_DOCTOR) && $user->isGranted(User::ROLE_PACIENTE);
     }
 
     /**
@@ -59,7 +58,7 @@ class AppointmentPolicy
      */
     public function update(User $user, Appointment $appointment)
     {
-        return $user->isGranted(User::ROLE_DOCTOR) && $user->id === $appointment->user_id;
+         return $user->isGranted(User::ROLE_DOCTOR)  && $user->id === $appointment->user_id;
     }
 
     /**
@@ -71,7 +70,7 @@ class AppointmentPolicy
      */
     public function delete(User $user, Appointment $appointment)
     {
-        return $user->isGranted(User::ROLE_DOCTOR);
+         return $user->isGranted(User::ROLE_DOCTOR) && $user->id === $appointment->user_id;;
     }
 
     /**
