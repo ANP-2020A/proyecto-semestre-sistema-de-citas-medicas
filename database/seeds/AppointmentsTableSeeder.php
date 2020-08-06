@@ -17,12 +17,12 @@ class AppointmentsTableSeeder extends Seeder
 
         // Obtenemos la lista de todos los usuarios creados e
         // iteramos sobre cada uno y simulamos un inicio de
-        // sesión con cada uno para crear artículos en su nombre
+
         $users = App\User::all();
         foreach ($users as $user) {
             //iniciamos sesión con este usuario
             JWTAuth::attempt(['email' => $user->email, 'password' => '123456']);
-            // Y ahora con este usuario creamos algunos articulos
+
            $num_appointments = 5;
             for ($j = 0; $j < $num_appointments; $j++){
                 Appointment::create([

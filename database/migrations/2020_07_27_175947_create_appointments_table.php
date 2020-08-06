@@ -15,7 +15,7 @@ class CreateAppointmentsTable extends Migration
     {
         Schema::create('appointments', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->DateTime('datetime');//revisar
+            $table->date('datetime');//revisar
             $table->string('description');
             $table->enum('status', ['abierto','cerrado']);//revisar
             $table->time('time');
