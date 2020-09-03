@@ -23,8 +23,8 @@ class Appointment extends Model
     public static function boot(){
         parent::boot();
 
-        static::creating(function ($appointment) {
-            $appointment->user_id = Auth::id();
+        static::creating(function ($appointments) {
+            $appointments->user_id = Auth::id();
         });
     }
 
