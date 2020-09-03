@@ -17,12 +17,13 @@ class AppointmentController extends Controller
         return response()->json(AppointmentResource::collection($users->appointments),200);
        //return Appointment::all();
     }
-    public function show(Appointment $appointments)
+    public function show(User $user, Appointment $appointments)
     {
 
         $this->authorize('view', $appointments);
 
-        return response()->json(new AppointmentResource($appointments),200);
+        $appointments = $user->appointments()->where('id',$appointments->id)->firstOrFail();
+        return response()->json($appointments,200);
 
         //return $appointments;
     }

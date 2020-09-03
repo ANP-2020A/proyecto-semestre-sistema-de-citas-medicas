@@ -44,9 +44,10 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 
         //appointments para ver a a que usuario le pertenece la cita
         Route::get('users/{users}/appointments', 'AppointmentController@index');
-        Route::get('users/{user}/appointments/{appointment}', 'AppointmentController@show');
+        Route::get('users/{user}/appointments/{appointments}', 'AppointmentController@show');
 
         Route::get('appointments/{appointments}', 'AppointmentController@show');
+        Route::get('appointments', 'AppointmentController@show');
         Route::post('appointments', 'AppointmentController@store');
         Route::put('appointments/{appointments}', 'AppointmentController@update');
         Route::delete('appointments/{appointments}', 'AppointmentController@delete');
