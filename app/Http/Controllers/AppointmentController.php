@@ -13,7 +13,7 @@ class AppointmentController extends Controller
 {
     public function index(User $users) //User $user
     {
-        //$this->authorize('viewAny', Appointment::class);
+        $this->authorize('viewAny', Appointment::class);
         return response()->json(AppointmentResource::collection($users->appointments),200);
        //return Appointment::all();
     }
@@ -39,7 +39,7 @@ class AppointmentController extends Controller
         $this->authorize('create', Appointment::class);
         $request->validate([
             'datetime' => 'required|unique:appointments',
-            'description' => 'required|string|max:100',
+            'description' => 'required|string|max:255',
             'status' => 'required',
             'time' => 'required|unique:appointments',
         ], $messages);

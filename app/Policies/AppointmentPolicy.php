@@ -23,7 +23,7 @@ class AppointmentPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->isGranted(User::ROLE_DOCTOR) && $user->isGranted(User::ROLE_PACIENTE);
+        return $user->isGranted(User::ROLE_DOCTOR) &&  $user->isGranted(User::ROLE_PACIENTE);
     }
 
     /**
