@@ -8,13 +8,16 @@ use App\User;
 use App\Http\Resources\AppointmentCollection;
 use http\Env\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AppointmentController extends Controller
 {
-    public function index(User $users) //User $user
+    public function index() //User $user
     {
         //$this->authorize('viewAny', Appointment::class);
-        return response()->json(AppointmentResource::collection($users->appointments),200);
+
+        $user = Auth::user();
+        return response()->json(AppointmentResource::collection($user->appointments),200);
        //return Appointment::all();
     }
     public function show(User $user, Appointment $appointments)

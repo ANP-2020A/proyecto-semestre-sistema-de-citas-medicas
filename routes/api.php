@@ -20,19 +20,23 @@ use Illuminate\Http\Request;
     return $request->user();
 });
 */
-
-Route::post('register', 'UserController@register');
-Route::post('login', 'UserController@authenticate');
-
-Route::get('users', 'UserController@index');
-Route::get('appointments', 'AppointmentController@index');
-Route::get('users/{users}', 'UserController@show');
+Route::group(['middleware' => ['cors']], function (){
 
 
-Route::group(['middleware' => ['jwt.verify']], function() {
+    Route::post('register', 'UserController@register');
+    Route::post('login', 'UserController@authenticate');
 
-    Route::get('user', 'UserController@getAuthenticatedUser');
-    Route::put('users/{users}', 'UserController@update');
+    //Route::get('users', 'UserController@index');
+    Route::get('appointments', 'AppointmentController@index');
+    //Route::get('users/{users}', 'UserController@show');
+
+
+    Route::group(['middleware' => ['jwt.verify']], function() {
+
+        Route::get('user', 'UserController@getAuthenticatedUser');
+        Route::put('users/{users}', 'UserController@update');
+
+        Route::post('logout', 'UserController@logout');
 
 
     /*Route::get('appointments/{appointments}', 'AppointmentController@show');
@@ -43,7 +47,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 */
 
         //appointments para ver a a que usuario le pertenece la cita
-        Route::get('users/{users}/appointments', 'AppointmentController@index');
+        Route::get('user/appointments', 'AppointmentController@index');
         Route::get('users/{user}/appointments/{appointments}', 'AppointmentController@show');
 
         Route::get('appointments/{appointments}', 'AppointmentController@show');
@@ -60,4 +64,5 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::put('specialties/{specialties}', 'SpecialtyController@update');
     Route::delete('specialties/{specialties}', 'SpecialtyController@delete');*/
 
+    });
 });
