@@ -54,18 +54,22 @@ private static $messages =[
         $credentials = $request->only('email', 'password');
         try {
             if (!$token = JWTAuth::attempt($credentials)) {
-                return response()->json(['error' => 'invalid_credentials'], 400);
+                return response()->json(['message' => 'invalid_credentials'], 400);
 
             }
         }catch(JWTException $e ){
-            return response()->json(['error' => 'could_not_create_token'], 500);
+            return response()->json(['message' => 'could_not_create_token'], 500);
         }
-        return response()->json(compact('token'));
+        $user = JWTAuth::user();
+
+        return response()->json(compact('token', 'user'));
     }
     public function register(Request $request){
 
 $status ='inactivo';
-        $validator = Validator::make($request->all(), [
+       // $validator = Validator::make($request->all(), [
+
+        $request->validate([
             'name' => 'required|string|max:30',
             'lastname' => 'required|string|max:30',
             'birthdate' => 'required',
@@ -77,9 +81,9 @@ $status ='inactivo';
 
             'status' => 'required',
         ],self::$messages);
-        if($validator->fails()){
+        /*if($validator->fails()){
             return response()->json($validator->errors()->toJson(), 400);
-        }
+        }*/
         $user = User::create([
             'name' => $request->get('name'),
             'lastname' => $request->get('lastname'),
@@ -109,15 +113,30 @@ $status ='inactivo';
     public function getAuthenticatedUser(){
         try{
             if (! $user = JWTAuth::parseToken()->authenticate()) {
-                return response()->json(['user not found'], 404);
+                return response()->json(['message' => 'user not found'], 404);
             }
         }catch(Tymon\JWTAuth\Exceptions\TokenExpiredException $e){
-            return response()->json(['token expired'], $e->getStatusCode());
+            return response()->json(['message' => 'token expired'], $e->getStatusCode());
         }catch (Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
-            return response()->json(['token_invalid'], $e->getStatusCode());
+            return response()->json(['message' => 'token_invalid'], $e->getStatusCode());
         } catch (Tymon\JWTAuth\Exceptions\JWTException $e) {
-            return response()->json(['token_absent'], $e->getStatusCode());
+            return response()->json(['message' => 'token_absent'], $e->getStatusCode());
         }
         return response()->json(new UserResource($user));
+    }
+
+    public function logout()
+    {
+        try {
+            JWTAuth::invalidate(JWTAuth::getToken());
+
+            return response()->json([
+                "status" => "success",
+                "message" => "User successfully logged out."
+            ], 200);
+        } catch (JWTException $e) {
+            // something went wrong whilst attempting to encode the token
+            return response()->json(["message" => "No se pudo cerrar la sesión."], 500);
+        }
     }
 }
