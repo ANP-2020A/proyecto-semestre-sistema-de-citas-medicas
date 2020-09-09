@@ -4,8 +4,6 @@
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
-
-
     /*
     }*/
  /*   protected $fillable = ['datetime', 'description', 'state', 'time' ];
@@ -30,5 +28,14 @@ class Appointment extends Model
 
     public function user(){
         return $this->belongsTo('App\User');
+    }
+}
+
+    public function pacients(){
+        return $this->belongsTo('App\User', 'pacient_id');
+    }
+
+    public function doctors(){
+        return $this->belongsTo('App\User', 'doctor_id');
     }
 }

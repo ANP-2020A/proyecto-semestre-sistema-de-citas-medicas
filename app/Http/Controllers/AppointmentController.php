@@ -20,6 +20,7 @@ class AppointmentController extends Controller
         return response()->json(AppointmentResource::collection($user->appointments),200);
        //return Appointment::all();
     }
+  
     public function show(User $user, Appointment $appointments)
     {
 
@@ -43,7 +44,7 @@ class AppointmentController extends Controller
         $this->authorize('create', Appointment::class);
         $request->validate([
             'datetime' => 'required|unique:appointments',
-            'description' => 'required|string|max:100',
+            'description' => 'required|string|max:255',
             'status' => 'required',
             'time' => 'required|unique:appointments',
         ], $messages);

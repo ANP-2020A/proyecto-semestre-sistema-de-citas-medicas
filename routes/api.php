@@ -38,7 +38,6 @@ Route::group(['middleware' => ['cors']], function (){
 
         Route::post('logout', 'UserController@logout');
 
-
     /*Route::get('appointments/{appointments}', 'AppointmentController@show');
     Route::post('appointments', 'AppointmentController@store');
     Route::put('appointments/{appointments}', 'AppointmentController@update');
