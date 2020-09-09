@@ -19,7 +19,7 @@ class UsersTableSeeder extends Seeder
 
         $faker = \Faker\Factory::create();
 
-        $password = Hash::make('git statu123456');
+        $password = Hash::make('123456');
         User::create([
             'name' => 'Administrador',
             'lastname' => 'prueba',
