@@ -4,8 +4,6 @@
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
-
-
     /*
     }*/
  /*   protected $fillable = ['datetime', 'description', 'state', 'time' ];
@@ -23,11 +21,15 @@ class Appointment extends Model
     public static function boot(){
         parent::boot();
 
-        static::creating(function ($appointment) {
-            $appointment->pacient_id = Auth::id();
-            $appointment->doctor_id = Auth::id();
+        static::creating(function ($appointments) {
+            $appointments->user_id = Auth::id();
         });
     }
+
+    public function user(){
+        return $this->belongsTo('App\User');
+    }
+}
 
     public function pacients(){
         return $this->belongsTo('App\User', 'pacient_id');
