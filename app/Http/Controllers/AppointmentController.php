@@ -12,22 +12,24 @@ use Illuminate\Support\Facades\Auth;
 
 class AppointmentController extends Controller
 {
-    public function index() //User $user
+   public function index() //User $user
     {
         //$this->authorize('viewAny', Appointment::class);
 
         $user = Auth::user();
-        return response()->json(AppointmentResource::collection($user->appointments),200);
-       //return Appointment::all();
+        //return response()->json(AppointmentResource::collection($user->appointments),200);
+      return new AppointmentCollection($user->appointments);
     }
-  
+
+
+
     public function show(User $user, Appointment $appointments)
     {
 
-        $this->authorize('view', $appointments);
+        //$this->authorize('view', $appointments);
 
-        $appointments = $user->appointments()->where('id',$appointments->id)->firstOrFail();
-        return response()->json($appointments,200);
+        //$appointments = $user->appointments()->where('id',$appointments->id)->firstOrFail();
+        return response()->json(new AppointmentResource($appointments),200);
 
         //return $appointments;
     }
