@@ -76,8 +76,10 @@ class AppointmentController extends Controller
         ],$messages);
        //$appointment->update($request->all());
         //return response()->json($appointment, 200);
-        $appointments = new Appointment($request->all());
-        return response()->json(new AppointmentResource($appointments), 200);
+
+        $appointments->update($request->all());
+        return response()->json($appointments, 200);
+
 
 
     }
