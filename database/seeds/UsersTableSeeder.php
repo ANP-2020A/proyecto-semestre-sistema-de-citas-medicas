@@ -20,6 +20,7 @@ class UsersTableSeeder extends Seeder
         $faker = \Faker\Factory::create();
 
         $password = Hash::make('123456');
+
         User::create([
             'name' => 'Administrador',
             'lastname' => 'prueba',
@@ -52,6 +53,8 @@ class UsersTableSeeder extends Seeder
             ]);
         }
         for ($i = 0; $i < 5; $i++) {
+
+
            User::create([
                 'name' => $faker->firstName,
                 'lastname' => $faker->lastName,
@@ -63,6 +66,8 @@ class UsersTableSeeder extends Seeder
                 'password' => $password,
                 'status' => 'inactivo',
             ]);
+
+
         }
     }
 }

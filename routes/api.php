@@ -28,6 +28,7 @@ Route::group(['middleware' => ['cors']], function (){
     Route::post('register', 'UserController@register');
     Route::post('login', 'UserController@authenticate');
 
+    Route::get('doctors', 'DoctorController@index');
 
 
 
@@ -51,6 +52,8 @@ Route::group(['middleware' => ['cors']], function (){
         Route::post('appointments', 'AppointmentController@store');
         Route::put('appointments/{appointments}', 'AppointmentController@update');
         Route::delete('appointments/{appointments}', 'AppointmentController@delete');
+
+
 
 
 
