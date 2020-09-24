@@ -22,12 +22,16 @@ class Appointment extends Model
         parent::boot();
 
         static::creating(function ($appointments) {
-            $appointments->user_id = Auth::id();
+            $appointments->pacient_id = Auth::id();
         });
     }
 
-    public function user(){
-        return $this->belongsTo('App\User');
+    public function pacient(){
+        return $this->belongsTo('App\User', 'pacient_id', 'id');
+    }
+
+    public function doctor(){
+        return $this->belongsTo('App\User', 'doctor_id', 'id');
     }
 
 
