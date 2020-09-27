@@ -35,7 +35,7 @@ class AppointmentPolicy
      */
     public function view(User $user, Appointment $appointment)
     {
-        return $user->isGranted(User::ROLE_DOCTOR) && $user->isGranted(User::ROLE_PACIENTE) && $user->id === $appointment->user_id;
+        return $user->isGranted(User::ROLE_DOCTOR) && $user->isGranted(User::ROLE_PACIENTE) && $user->id === $appointment->pacient_id;
     }
 
     /**
@@ -58,7 +58,7 @@ class AppointmentPolicy
      */
     public function update(User $user, Appointment $appointment)
     {
-         return $user->isGranted(User::ROLE_DOCTOR);// && $user->id === $appointment->user_id;
+         return $user->isGranted(User::ROLE_DOCTOR);
     }
 
     /**
@@ -70,7 +70,7 @@ class AppointmentPolicy
      */
     public function delete(User $user, Appointment $appointment)
     {
-         return $user->isGranted(User::ROLE_DOCTOR) ;//&& $user->id === $appointment->user_id;;
+         return $user->isGranted(User::ROLE_DOCTOR) ;
     }
 
     /**
