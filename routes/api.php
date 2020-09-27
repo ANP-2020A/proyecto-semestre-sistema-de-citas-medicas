@@ -20,7 +20,7 @@ use Illuminate\Http\Request;
     return $request->user();
 });
 */
-
+Route::get('doctors', 'DoctorController@index');
 
 Route::group(['middleware' => ['cors']], function (){
 
@@ -28,7 +28,7 @@ Route::group(['middleware' => ['cors']], function (){
     Route::post('register', 'UserController@register');
     Route::post('login', 'UserController@authenticate');
 
-    Route::get('doctors', 'DoctorController@index');
+
 
 
 
@@ -45,7 +45,7 @@ Route::group(['middleware' => ['cors']], function (){
 
         //appointments para ver a a que usuario le pertenece la cita
         Route::get('user/appointments', 'AppointmentController@index');
-        Route::get('users/{users}/appointments/{appointments}', 'AppointmentController@show');
+        Route::get('user/{users}/appointments/{appointments}', 'AppointmentController@show');
 
         Route::get('appointments/{appointments}', 'AppointmentController@show');
 //        Route::get('appointments', 'AppointmentController@show');

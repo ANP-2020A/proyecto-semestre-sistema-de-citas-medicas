@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Pacient;
 use App\User;
 use App\Doctor;
 use Illuminate\Database\Seeder;
@@ -52,6 +53,8 @@ class UsersTableSeeder extends Seeder
                 'status' => 'inactivo',
             ]);
         }
+
+
         for ($i = 0; $i < 5; $i++) {
 
 
@@ -69,6 +72,8 @@ class UsersTableSeeder extends Seeder
 
 
         }
+
+
     }
 }
 

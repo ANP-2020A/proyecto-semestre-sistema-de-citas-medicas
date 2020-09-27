@@ -20,7 +20,7 @@ class Appointment extends JsonResource
             'description' => $this->description,
             'status' => $this->status,
             'time' => $this->time,
-            'user' => "/api/users/" . $this->user_id,
+            'user' => "/api/users/" . $this->pacient_id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
