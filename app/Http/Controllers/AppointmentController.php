@@ -41,14 +41,13 @@ class AppointmentController extends Controller
             'description.required' => "La descripcion es obligatoria y no debe
             pasarse los 100 caracteres",
             'time.required' => "La hora es obligatoria",
-
         ];
         $this->authorize('create', Appointment::class);
         $request->validate([
             'datetime' => 'required|unique:appointments',
             'description' => 'required|string|max:255',
-            'status' => 'required',
             'time' => 'required|unique:appointments',
+            'doctor_id' => 'required|exists:doctors,id',
         ], $messages);
 
 
@@ -71,7 +70,6 @@ class AppointmentController extends Controller
         $request->validate([
             'datetime' => 'required|unique:appointments',
             'description' => 'required|string|max:100',
-            'status' => 'required',
             'time' => 'required|unique:appointments',
         ],$messages);
        //$appointment->update($request->all());
