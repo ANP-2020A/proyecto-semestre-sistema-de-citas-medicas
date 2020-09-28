@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Doctor;
 use App\User;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -79,11 +79,13 @@ $status ='inactivo';
             'email' => 'required|string|unique:users|email|max:50',
             'password' => 'required|string|min:6|confirmed',
 
-            'status' => 'required',
+            //'status' => 'required',
         ],self::$messages);
         /*if($validator->fails()){
             return response()->json($validator->errors()->toJson(), 400);
         }*/
+
+
         $user = User::create([
             'name' => $request->get('name'),
             'lastname' => $request->get('lastname'),
@@ -106,9 +108,64 @@ $status ='inactivo';
 
 
 
+
+
         $token = JWTAuth::fromUser($user);
 
         return response()->json(compact('user', 'token'),201);
+    }
+
+    public function registerD(Request $request){
+        $status ='inactivo';
+        // $validator = Validator::make($request->all(), [
+
+        $request->validate([
+            'name' => 'required|string|max:30',
+            'lastname' => 'required|string|max:30',
+            'birthdate' => 'required',
+            'idcard' => 'required|integer|unique:users',
+            'phone' => 'required|integer|unique:users',
+            'address' => 'required|string|max:50',
+            'email' => 'required|string|unique:users|email|max:50',
+            'password' => 'required|string|min:6|confirmed',
+
+            //'status' => 'required',
+        ],self::$messages);
+        /*if($validator->fails()){
+            return response()->json($validator->errors()->toJson(), 400);
+        }*/
+
+        $doctor = Doctor::create([
+            'specialty' => $request->get('specialty')
+        ]);
+        $doctor->user()->create([
+            'name' => $request->get('name'),
+            'lastname' => $request->get('lastname'),
+            'birthdate' => $request->get('birthdate'),
+            'idcard' => $request->get('idcard'),
+            'phone' => $request->get('phone'),
+            'address' => $request->get('address'),
+            'email' => $request->get('email'),
+            'password' => Hash::make($request->get('password')),
+            //'specialty_id' => $request->get('specialty_id'),
+            'status' => $status,
+        ]);
+
+
+        /*    $user = new User($request->all());
+            $path = $request->image->register('public/users');
+            $user->image = $path;
+            $user->save();*/
+
+
+
+        $user = $doctor->user;
+        $token = JWTAuth::fromUser($doctor->user);
+
+        return response()->json(compact($user, $token),201);
+        // $validator = Validator::make($request->all(), [
+
+
     }
     public function getAuthenticatedUser(){
         try{

@@ -26,6 +26,7 @@ Route::group(['middleware' => ['cors']], function (){
 
 
     Route::post('register', 'UserController@register');
+    Route::post('registerD', 'UserController@registerD');
     Route::post('login', 'UserController@authenticate');
 
 
