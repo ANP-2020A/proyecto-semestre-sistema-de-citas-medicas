@@ -23,7 +23,7 @@ class Doctor extends JsonResource
             'id' => $this->id,
             'name' => $this->user->name,
             'lastname' => $this->user->lastname,
-            'specialty' => $this->specialty
+            'specialty' => $this->specialty,
 
         ];
     }

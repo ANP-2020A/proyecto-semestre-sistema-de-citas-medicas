@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Auth;
 class Appointment extends Model
 {
 
-    protected $fillable = ['datetime', 'description', 'status', 'time'];
+    protected $fillable = ['datetime', 'description', 'status', 'time', 'doctor_id'];
 
     public static function boot(){
         parent::boot();

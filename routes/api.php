@@ -51,6 +51,7 @@ Route::group(['middleware' => ['cors']], function (){
         Route::get('appointments/{appointments}', 'AppointmentController@show');
 //        Route::get('appointments', 'AppointmentController@show');
         Route::post('appointments', 'AppointmentController@store');
+        //Route::post('user/{users}/appointments', 'AppointmentController@store');
         Route::put('appointments/{appointments}', 'AppointmentController@update');
         Route::delete('appointments/{appointments}', 'AppointmentController@delete');
 
